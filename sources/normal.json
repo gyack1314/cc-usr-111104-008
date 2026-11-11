@@ -1,0 +1,125 @@
+{
+  "routes": [
+    {
+      "path": "/start",
+      "responses": [
+        {
+          "status": 302,
+          "headers": [
+            [
+              "Location",
+              "/middle"
+            ]
+          ],
+          "text": ""
+        }
+      ]
+    },
+    {
+      "path": "/middle",
+      "responses": [
+        {
+          "status": 301,
+          "headers": [
+            [
+              "Location",
+              "/page"
+            ]
+          ],
+          "text": ""
+        }
+      ]
+    },
+    {
+      "path": "/page",
+      "responses": [
+        {
+          "status": 200,
+          "headers": [
+            [
+              "Content-Type",
+              "text/html"
+            ],
+            [
+              "X-Note",
+              "one"
+            ],
+            [
+              "X-Note",
+              "two"
+            ],
+            [
+              "Set-Cookie",
+              "synthetic=value"
+            ]
+          ],
+          "file": "page.html"
+        }
+      ]
+    },
+    {
+      "path": "/gzip",
+      "responses": [
+        {
+          "status": 200,
+          "headers": [
+            [
+              "Content-Type",
+              "text/html"
+            ],
+            [
+              "Content-Encoding",
+              "gzip"
+            ]
+          ],
+          "file": "page.gz"
+        }
+      ]
+    },
+    {
+      "path": "/binary",
+      "responses": [
+        {
+          "status": 200,
+          "headers": [
+            [
+              "Content-Type",
+              "application/octet-stream"
+            ]
+          ],
+          "file": "binary.bin"
+        }
+      ]
+    },
+    {
+      "path": "/loop",
+      "responses": [
+        {
+          "status": 302,
+          "headers": [
+            [
+              "Location",
+              "/loop"
+            ]
+          ],
+          "text": ""
+        }
+      ]
+    },
+    {
+      "path": "/outside",
+      "responses": [
+        {
+          "status": 302,
+          "headers": [
+            [
+              "Location",
+              "https://outside.invalid/private"
+            ]
+          ],
+          "text": ""
+        }
+      ]
+    }
+  ]
+}
