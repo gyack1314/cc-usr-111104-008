@@ -1,6 +1,21 @@
 {
   "routes": [
     {
+      "path": "/entry",
+      "responses": [
+        {
+          "status": 302,
+          "headers": [
+            [
+              "Location",
+              "/start"
+            ]
+          ],
+          "text": ""
+        }
+      ]
+    },
+    {
       "path": "/start",
       "responses": [
         {
@@ -118,6 +133,44 @@
             ]
           ],
           "text": ""
+        }
+      ]
+    },
+    {
+      "path": "/chunked",
+      "responses": [
+        {
+          "status": 200,
+          "headers": [
+            [
+              "Content-Type",
+              "text/html"
+            ]
+          ],
+          "file": "page.html",
+          "chunked": true,
+          "write_size": 16
+        }
+      ]
+    },
+    {
+      "path": "/chunked-gzip",
+      "responses": [
+        {
+          "status": 200,
+          "headers": [
+            [
+              "Content-Type",
+              "text/html"
+            ],
+            [
+              "Content-Encoding",
+              "gzip"
+            ]
+          ],
+          "file": "page.gz",
+          "chunked": true,
+          "write_size": 32
         }
       ]
     }

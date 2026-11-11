@@ -35,6 +35,19 @@ def start(scenario, host='127.0.0.1', port=0):
             data=(path.parent/found['file']).read_bytes() if 'file' in found else found.get('text','').encode('utf8')
             self.send_response(found.get('status',200))
             for k,v in found.get('headers',[]):self.send_header(k,v)
+            if found.get('chunked'):
+                # 合成chunked传输分帧：客户端应去除分帧并保留Content-Encoding实体。
+                self.send_header('Transfer-Encoding','chunked')
+                self.end_headers()
+                try:
+                    step=found.get('write_size',max(1,len(data)//4 or 1))
+                    for offset in range(0,len(data),step):
+                        piece=data[offset:offset+step]
+                        self.wfile.write(f'{len(piece):X}\r\n'.encode('ascii'))
+                        self.wfile.write(piece);self.wfile.write(b'\r\n');self.wfile.flush()
+                    self.wfile.write(b'0\r\n\r\n');self.wfile.flush()
+                except (BrokenPipeError,ConnectionResetError):pass
+                return
             self.send_header('Content-Length',str(len(data)))
             self.end_headers()
             try:

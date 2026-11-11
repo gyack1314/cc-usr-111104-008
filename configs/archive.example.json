@@ -1,0 +1,14 @@
+{
+  "warc": "out/course-materials.warc",
+  "allowed_origins": [
+    "http://127.0.0.1:8765"
+  ],
+  "max_hops": 5,
+  "timeout": 10,
+  "urls": [
+    "http://127.0.0.1:8765/entry",
+    "http://127.0.0.1:8765/gzip",
+    "http://127.0.0.1:8765/chunked-gzip",
+    "http://127.0.0.1:8765/binary"
+  ]
+}
